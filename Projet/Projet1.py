@@ -2,6 +2,13 @@ import csv
 
 
 def readFileCSV(file):
+    """
+    Lit un fichier CSV
+    :param file:
+    :return: ponderation : list
+             data : list
+             result : list
+    """
     ponderation=[]
     data=[]
     result=[]
@@ -13,9 +20,11 @@ def readFileCSV(file):
                 for i in range(1,len(row)-1):
                     ponderation.append(row[i])
             else:
+                print ('Haram')
                 
     return ponderation, data, result   
-            
+
+
 ponderation, data, result = readFileCSV('criteres.csv')
 print(ponderation)
 print(data)
