@@ -1,5 +1,6 @@
 import csv
 import numpy as np
+from optlang import Model, Variable, Constraint, Objective
 
 def readFileCSVData(file):
     """
@@ -44,3 +45,16 @@ def readFileCSVInt(file):
 intervalle = readFileCSVInt('intervalles.csv')
 print(len(intervalle))
 
+def createLP(ponderation, data, result, intervalle):
+    nbelements=len(data)
+    nbcriteres=len(ponderation)
+    U=[]
+    f=[]
+    for i in range(nbelements):
+        x=Variable("f"+str(i),lb=0)
+        f.append(x)
+        
+    print(f)
+    
+    
+createLP(ponderation, data, result, intervalle)
