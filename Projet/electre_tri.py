@@ -119,10 +119,14 @@ def EvalOptimiste(lesCouches,classement,poids,type,seuil):
     :param seuil:
     :return:
     """
+    liste = []
     # pour chaque element de la matrice (une couche culotte), en partant de l'indice max (matrice profils[i][0]), on....
     for couche in range(0,len(lesCouches)): # len(lesCouches)+1 ?
-        print("Couche "+str(lesCouches[couche][0])+" :",classement[AffectationOptimiste(lesCouches[couche],classement,poids,type,seuil)])
-    return None
+        liste.append(
+            ["Couche " + str(lesCouches[couche][0]),classement[AffectationOptimiste(lesCouches[couche],classement,poids,type,seuil)][0]]
+        )
+        #print("Couche "+str(lesCouches[couche][0])+" :",classement[AffectationOptimiste(lesCouches[couche],classement,poids,type,seuil)])
+    return liste
 
 def EvalPessimiste(lesCouches,classement,poids,type,seuil):
     """
@@ -136,8 +140,10 @@ def EvalPessimiste(lesCouches,classement,poids,type,seuil):
     """
     liste = []
     for couche in range(0,len(lesCouches)): # len(lesCouches)+1 ?
-        liste.append(["Couche "+str(couche),AffectationPessimiste(lesCouches[couche],classement,poids,type,seuil)])
-        print("Couche " + str(lesCouches[couche][0]) + " :",classement[AffectationPessimiste(lesCouches[couche], classement, poids, type, seuil)])
+        liste.append(
+            ["Couche " + str(lesCouches[couche][0]),classement[AffectationPessimiste(lesCouches[couche], classement, poids, type, seuil)][0]]
+        )
+        #print("Couche " + str(lesCouches[couche][0]) + " :",classement[AffectationPessimiste(lesCouches[couche], classement, poids, type, seuil)])
     return liste
 
 
@@ -176,14 +182,19 @@ with open('mat.csv', 'r') as f:
 
 print("#### DEBUT ELECTRE TRI ###")
 print("optimiste")
-EvalOptimiste(mat,matrice_profils,poids,types,SEUIL)
+op = EvalOptimiste(mat,matrice_profils,poids,types,SEUIL)
 
 print("pessimiste")
 #EvalOptimiste(mat[0:2],matrice_profils,poids,types,SEUIL)
-EvalPessimiste(mat,matrice_profils,poids,types,SEUIL)
+pe = EvalPessimiste(mat,matrice_profils,poids,types,SEUIL)
 #
 # df = pd.DataFrame(mat)
 # df.columns=['Nom','Performance','Composition','NoteFinale']
 # pprint(df)
 
 # Surclasse(0.5, matrice_profils[5], mat[0:1], poids, types)
+
+df = pd.DataFrame(pe)
+df.columns= ['Couche','Pessimiste']
+df['Optimiste'] = [ row[1] for row in op]
+pprint(df)
