@@ -1,0 +1,11 @@
+﻿name: our-environment
+channels:
+  - damianavila82
+  - conda-forge
+dependencies:
+  - python
+  - numpy
+  - scipy
+  - pandas
+  - rise
+  - optlang
