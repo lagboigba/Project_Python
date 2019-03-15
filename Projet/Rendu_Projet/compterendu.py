@@ -13,16 +13,18 @@
 
 # Ci dessous, le code source de la première partie
 
-# In[1]:
+# In[ ]:
 
 
+get_ipython().run_line_magic('matplotlib', 'inline')
 import csv
 import numpy as np
 import pandas as pd
 from optlang import Model, Variable, Constraint, Objective
+import matplotlib.pyplot as plt
 
 
-# In[2]:
+# In[ ]:
 
 
 def readFileCSVData(file):
@@ -58,7 +60,7 @@ def readFileCSVData(file):
     return ponderation, data, result, types
 
 
-# In[3]:
+# In[ ]:
 
 
 def readFileCSVInterval(file):
@@ -75,7 +77,7 @@ def readFileCSVInterval(file):
     return intervalle
 
 
-# In[4]:
+# In[ ]:
 
 
 def createVars(nbelements,nbcriteres):
@@ -100,7 +102,7 @@ def createVars(nbelements,nbcriteres):
     return U,f
 
 
-# In[5]:
+# In[ ]:
 
 
 def constraints1to15(constraintList,ponderation,Uvars,f,nbelements,nbcriteres):
@@ -125,7 +127,7 @@ def constraints1to15(constraintList,ponderation,Uvars,f,nbelements,nbcriteres):
     return C
 
 
-# In[6]:
+# In[ ]:
 
 
 def createModel2(ponderation, data, result, intervalle, fixed):
@@ -171,8 +173,7 @@ def createModel2(ponderation, data, result, intervalle, fixed):
     return model
 
 
-# In[7]:
-
+# In[ ]:
 
 
 def createModel3(ponderation, data, result, intervalle):
@@ -215,8 +216,7 @@ def createModel3(ponderation, data, result, intervalle):
     return model
 
 
-# In[8]:
-
+# In[ ]:
 
 
 def createModel4(ponderation, data, result, intervalle):
@@ -244,7 +244,7 @@ def createModel4(ponderation, data, result, intervalle):
     return model
 
 
-# In[9]:
+# In[ ]:
 
 
 def CheckAdditiveModel(fileData, fileInt, question):
@@ -274,7 +274,7 @@ def CheckAdditiveModel(fileData, fileInt, question):
 
 # **Question 1: CheckAdditiveModel**
 
-# In[10]:
+# In[ ]:
 
 
 print("Question 2.1")
@@ -283,7 +283,7 @@ CheckAdditiveModel('criteres.csv', 'intervalles.csv', "2.1")
 
 # **Question 2.2**
 
-# In[11]:
+# In[ ]:
 
 
 print("Question 2.2")
@@ -292,7 +292,7 @@ CheckAdditiveModel('criteres.csv', 'intervalles.csv', "2.2")
 
 # **Question 3**
 
-# In[12]:
+# In[ ]:
 
 
 print("Question 3")
@@ -301,7 +301,7 @@ CheckAdditiveModel('criteres.csv', 'intervalles.csv', "3")
 
 # **Question 4**
 
-# In[13]:
+# In[ ]:
 
 
 print("Question 4")
@@ -312,12 +312,11 @@ CheckAdditiveModel('criteres.csv', 'intervalles.csv', "4")
 
 # **Code source de la 2e méthode**
 
-# In[14]:
+# In[ ]:
 
 
 def concordance_partiel(type, h, bi, j):
     """
-
     :param h: 1 Couche-culotte (donc liste)
     :param bi: profil (frontière qui YYYY)
     :param j: critère
@@ -337,7 +336,7 @@ def concordance_partiel(type, h, bi, j):
         return -1
 
 
-# In[15]:
+# In[ ]:
 
 
 def concordanceGlobal(h, bi, poids, type):
@@ -357,12 +356,11 @@ def concordanceGlobal(h, bi, poids, type):
     return numerateur / denom
 
 
-# In[16]:
+# In[ ]:
 
 
 def Surclasse(seuilMajorite, h, bi, poids, type):
     """
-
     :param type: vecteur contenant ['min'/'max'] pour chaque critere
     :param seuilMajorite:
     :param h:
@@ -376,12 +374,11 @@ def Surclasse(seuilMajorite, h, bi, poids, type):
         return False
 
 
-# In[17]:
+# In[ ]:
 
 
 def AffectationOptimiste(h, classement, poids, type, seuil):
     """
-
     :param h:
     :param classement:
     :param poids:
@@ -396,12 +393,11 @@ def AffectationOptimiste(h, classement, poids, type, seuil):
     return profil 
 
 
-# In[18]:
+# In[ ]:
 
 
 def AffectationPessimiste(h, classement, poids, type, seuil):
     """
-
     :param h:
     :param classement:
     :param poids:
@@ -415,12 +411,11 @@ def AffectationPessimiste(h, classement, poids, type, seuil):
     return profil
 
 
-# In[19]:
+# In[ ]:
 
 
 def EvalOptimiste(lesCouches, classement, poids, type, seuil):
     """
-
     :param lesCouches:
     :param classement:
     :param poids:
@@ -437,12 +432,11 @@ def EvalOptimiste(lesCouches, classement, poids, type, seuil):
     return dict
 
 
-# In[20]:
+# In[ ]:
 
 
 def EvalPessimiste(lesCouches, classement, poids, type, seuil):
     """
-
     :param lesCouches:
     :param classement:
     :param poids:
@@ -458,7 +452,7 @@ def EvalPessimiste(lesCouches, classement, poids, type, seuil):
     return dict
 
 
-# In[21]:
+# In[ ]:
 
 
 def createMatriceProfils(nomList,val,nbCriteres):
@@ -473,16 +467,11 @@ def createMatriceProfils(nomList,val,nbCriteres):
     return matrice
 
 
-# In[22]:
+# In[ ]:
 
 
 poids, mat, result,types = readFileCSVData('criteres.csv')
 nbCriteres = len(poids)
-
-
-# In[23]:
-
-
 # Transformation structure mat
 flat_list = []
 for sublist in mat:
@@ -494,72 +483,145 @@ for sublist in mat:
         else:
             tempL.append(item)
     flat_list.append(tempL)
-
 mat = flat_list
 
 
-# In[25]:
+# In[ ]:
 
 
 # Chargement des profils, categories
 nomList = ['Profil 6 : Frontiere Le meilleur, impossible','Profil 5 : Dans les premiers','Profil 4 : Moyen +','Profil 3 : Moyen -','Profil 2 : Dans les derniers','Profil 1 : Frontiere Le pire,impossible']
-valuesList = [100,3,2,1,-1,-100]
+valuesList = [100,3,2,1,-1,-2,-100]
 matrice_profils = createMatriceProfils(nomList,valuesList,nbCriteres)
-
 categorie = ['Très bon', 'Bon', 'Acceptable', 'Insuffisant', 'Inacceptable']
 
 
 # **Question 6** : Lambda = 0.55
 
-# In[26]:
+# In[ ]:
 
 
 op = EvalOptimiste(mat, matrice_profils, poids, types, 0.55)
 pe = EvalPessimiste(mat, matrice_profils, poids, types, 0.55)
 final_results = {key: [op[key], pe[key]] for key in op}
+df_lambda1 = pd.DataFrame(final_results)
+df_lambda1 = pd.DataFrame.from_records(final_results).T
+df_lambda1.columns = ['Electre Optimiste', 'Electre Pessimiste']
 
 
-# In[27]:
+# In[ ]:
 
 
-df = pd.DataFrame(final_results)
-df = pd.DataFrame.from_records(final_results).T
-df.columns = ['Electre Optimiste', 'Electre Pessimiste']
-display(df)
+print(df_lambda1)
 
 
 # **Question 6** : Lambda = 0.75
 
-# In[28]:
+# In[ ]:
 
 
 op = EvalOptimiste(mat, matrice_profils, poids, types, 0.75)
 pe = EvalPessimiste(mat, matrice_profils, poids, types, 0.75)
 final_results = {key: [op[key], pe[key]] for key in op}
+df_lambda2 = pd.DataFrame(final_results)
+df_lambda2 = pd.DataFrame.from_records(final_results).T
+df_lambda2.columns = ['Electre Optimiste', 'Electre Pessimiste']
 
 
-# In[29]:
+# In[ ]:
 
 
-df = pd.DataFrame(final_results)
-df = pd.DataFrame.from_records(final_results).T
-df.columns = ['Electre Optimiste', 'Electre Pessimiste']
-display(df)
+print(df_lambda2)
 
 
-# **Question 7** : FIN TEMPORAIRE DU BOUZIN
+# **Question 7** : Résultats - Matrices de confusions
 
-# In[30]:
+# In[ ]:
 
 
-# TODO
+def plot_confusion_matrix(df_confusion, cmap=plt.cm.gray_r):
+    plt.matshow(df_confusion, cmap=cmap) # imshow
+    plt.colorbar()
+    tick_marks_x = np.arange(len(df_confusion.columns))
+    tick_marks_y = np.arange(len(df_confusion.index))
+    plt.xticks(tick_marks_x, df_confusion.columns, rotation=45)
+    plt.yticks(tick_marks_y, df_confusion.index)
+    plt.ylabel(df_confusion.index.name)
+    plt.xlabel(df_confusion.columns.name)
+
+
+# In[ ]:
+
+
+def getNote(val,inter,categorie,valuesList):
+    for k,v in inter.items():
+        if v[0] <= val <= v[1]:
+            return categorie[valuesList.index(int(k))-1]
+    print('Erreur GetNote')
+    return 'sans cat'
+
+def attributeGroup(items,inter,cat,valuesList):
+    """
+    Converti les notes /20 en categories (Acceptable, Insuffisant...)
+    """
+    listNote = []
+    for idx,k in enumerate(items):
+        listNote.append([k[0],getNote(k[1],inter,cat,valuesList)]) # k[0] c'est le nom de la couche
+    df_temp = pd.DataFrame(listNote)
+    df_temp = pd.DataFrame.from_records(listNote)
+    df_temp.columns = ['Couche', '60 Millions']
+    df_temp.set_index('Couche',inplace=True)
+    return df_temp
+
+
+# In[ ]:
+
+
+inter = readFileCSVInterval('intervalles.csv')
+# serie60 contient le classement final concu par 60 Millions de Conso.
+serie60 = attributeGroup(result,inter,categorie,valuesList)
+print(serie60)
+
+
+# In[ ]:
+
+
+# On crée les 4 matrices de confusion
+df_confusion_1_op = pd.crosstab(df_lambda1['Electre Optimiste'], serie60['60 Millions'])
+df_confusion_1_pe = pd.crosstab(df_lambda1['Electre Pessimiste'], serie60['60 Millions'])
+df_confusion_2_op = pd.crosstab(df_lambda2['Electre Optimiste'], serie60['60 Millions'])
+df_confusion_2_pe = pd.crosstab(df_lambda2['Electre Pessimiste'], serie60['60 Millions'])
+
+
+# In[ ]:
+
+
+plot_confusion_matrix(df_confusion_1_op, cmap='OrRd')
+
+
+# In[ ]:
+
+
+plot_confusion_matrix(df_confusion_1_pe, cmap='YlGn')
+
+
+# In[ ]:
+
+
+plot_confusion_matrix(df_confusion_2_op, cmap='OrRd')
+
+
+# In[ ]:
+
+
+plot_confusion_matrix(df_confusion_2_pe, cmap='YlGn')
 
 
 # ### Méthode 3 : Arbre de Décision
 
 # **Question 8**
 
-# In[31]:
+# In[ ]:
 
 
 class decisionnode:
@@ -667,7 +729,7 @@ def printtree(tree, indent=''):
         print(indent + 'False->',printtree(tree.fb, indent + '  '))
 
 
-# In[32]:
+# In[ ]:
 
 
 my_data = [
@@ -686,7 +748,7 @@ my_data = [
 ]
 
 
-# In[33]:
+# In[ ]:
 
 
 printtree(buildtree(my_data))
@@ -696,7 +758,7 @@ printtree(buildtree(my_data))
 
 # ### 1e Méthode : PL
 
-# In[34]:
+# In[ ]:
 
 
 print("Question 2.1")
@@ -715,7 +777,7 @@ print("----------------------------------------")
 
 # ### 2e Méthode : ELECTRE TRI
 
-# In[35]:
+# In[ ]:
 
 
 poids, mat, result,types = readFileCSVData('criteresAEROSOL.csv')
@@ -731,27 +793,91 @@ for sublist in mat:
             tempL.append(item)
     flat_list.append(tempL)
 mat = flat_list
-##
+
 # Creation matrice de profils
 nomList = ['Profil 6 : Frontiere Le meilleur, impossible','Profil 5 : Dans les premiers','Profil 4 : Moyen +','Profil 3 : Moyen -','Profil 2 : Dans les derniers','Profil 1 : Frontiere Le pire,impossible']
-valuesList = [100,3,2,1,-1,-100]
+valuesList = [100,3,2,1,-1,-2,-100]
 nbCriteres = len(poids)
 matrice_profils = createMatriceProfils(nomList,valuesList,nbCriteres)
 categorie = ['Très bon', 'Bon', 'Acceptable', 'Insuffisant', 'Inacceptable']
 
-##
+
+# In[ ]:
+
+
+## Seuil 55%
 op = EvalOptimiste(mat, matrice_profils, poids, types, 0.55)
 pe = EvalPessimiste(mat, matrice_profils, poids, types, 0.55)
 final_results = {key: [op[key], pe[key]] for key in op}
-df = pd.DataFrame(final_results)
-df = pd.DataFrame.from_records(final_results).T
-df.columns = ['Electre Optimiste', 'Electre Pessimiste']
-display(df)
+df_l1 = pd.DataFrame(final_results)
+df_l1 = pd.DataFrame.from_records(final_results).T
+df_l1.columns = ['Electre Optimiste', 'Electre Pessimiste']
+print(df_l1)
 
+
+# In[ ]:
+
+
+## Seuil 75%
+op = EvalOptimiste(mat, matrice_profils, poids, types, 0.75)
+pe = EvalPessimiste(mat, matrice_profils, poids, types, 0.75)
+final_results = {key: [op[key], pe[key]] for key in op}
+df_l2 = pd.DataFrame(final_results)
+df_l2 = pd.DataFrame.from_records(final_results).T
+df_l2.columns = ['Electre Optimiste', 'Electre Pessimiste']
+
+
+# In[ ]:
+
+
+print(df_l2)
+
+
+# In[ ]:
+
+
+# Matrices de confusion
+inter = readFileCSVInterval('intervalles.csv')
+# serieAERO contient le classement final concu par 60 Millions de Conso.
+serieAERO = attributeGroup(result,inter,categorie,valuesList)
+print(serieAERO)
+
+# On crée les 4 matrices de confusion
+df_confusion_1_op = pd.crosstab(df_l1['Electre Optimiste'], serieAERO['60 Millions'])
+df_confusion_1_pe = pd.crosstab(df_l1['Electre Pessimiste'], serieAERO['60 Millions'])
+df_confusion_2_op = pd.crosstab(df_l2['Electre Optimiste'], serieAERO['60 Millions'])
+df_confusion_2_pe = pd.crosstab(df_l2['Electre Pessimiste'], serieAERO['60 Millions'])
+
+
+# In[ ]:
+
+
+plot_confusion_matrix(df_confusion_1_op, cmap='OrRd')
+
+
+# In[ ]:
+
+
+plot_confusion_matrix(df_confusion_1_pe, cmap='YlGn')
+
+
+# In[ ]:
+
+
+plot_confusion_matrix(df_confusion_2_op, cmap='OrRd')
+
+
+# In[ ]:
+
+
+plot_confusion_matrix(df_confusion_2_pe, cmap='YlGn')
+
+
+# Conclusion : Avec méthode optimiste avec lambda à 0.55, on se rapproche des résultats du magazine ; avec une véritable approche mathématique
 
 # ### 3e Méthode : Arbre de décision
 
-# In[36]:
+# In[ ]:
 
 
 # code
