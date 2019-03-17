@@ -727,6 +727,21 @@ def printtree(tree, indent=''):
         # Print the branches
         print(indent + 'True->', printtree(tree.tb, indent + '  '))
         print(indent + 'False->',printtree(tree.fb, indent + '  '))
+        
+        
+def classify(observation,tree):
+  if tree.results!=None:
+    return tree.results
+  else:
+    v=observation[tree.col]
+    branch=None
+  if isinstance(v,int) or isinstance(v,float):
+    if v>=tree.value: branch=tree.tb
+    else: branch=tree.fb
+  else:
+    if v==tree.value: branch=tree.tb
+    else: branch=tree.fb
+  return classify(observation,branch)        
 
 
 # In[ ]:
@@ -753,6 +768,18 @@ my_data = [
 
 printtree(buildtree(my_data))
 
+classify([3,3],buildtree(my_data))
+classify([2,2],buildtree(my_data))
+classify([1,3],buildtree(my_data))
+classify([1,3],buildtree(my_data))
+classify([1,1],buildtree(my_data))
+classify([2,1],buildtree(my_data))
+classify([2,-1],buildtree(my_data))
+classify([1,-1],buildtree(my_data))
+classify([2,-1],buildtree(my_data))
+classify([2,-2],buildtree(my_data))
+classify([2,-2],buildtree(my_data))
+classify([1,-2],buildtree(my_data))
 
 # ## Partie 2 : Comparatif Aérosols
 
